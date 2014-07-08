@@ -76,10 +76,10 @@ namespace Westwind.Globalization
                 DbDataReader reader;
 
                 if (string.IsNullOrEmpty(cultureName))
-                    reader = data.ExecuteReader("select ResourceId,Value,Type,BinFile,TextFile,FileName from " + DbResourceConfiguration.Current.ResourceTableName + " where " + resourceFilter + " and (LocaleId is null OR LocaleId = '') order by ResourceId",
+                    reader = data.ExecuteReader("select ResourceId,Value,Type,BinFile,TextFile,FileName,DateModified from " + DbResourceConfiguration.Current.ResourceTableName + " where " + resourceFilter + " and (LocaleId is null OR LocaleId = '') order by ResourceId",
                                                 data.CreateParameter("@ResourceSet", resourceSet));
                 else
-                    reader = data.ExecuteReader("select ResourceId,Value,Type,BinFile,TextFile,FileName from " + DbResourceConfiguration.Current.ResourceTableName + " where " + resourceFilter + " and LocaleId=@LocaleId order by ResourceId",
+                    reader = data.ExecuteReader("select ResourceId,Value,Type,BinFile,TextFile,FileName,DateModified from " + DbResourceConfiguration.Current.ResourceTableName + " where " + resourceFilter + " and LocaleId=@LocaleId order by ResourceId",
                                                 data.CreateParameter("@ResourceSet", resourceSet),
                                                 data.CreateParameter("@LocaleId", cultureName));
 
@@ -162,7 +162,7 @@ namespace Westwind.Globalization
             DbDataReader reader = null;
 
             string sql =
-            @"select resourceId, LocaleId, Value, Type, BinFile, TextFile, FileName
+            @"select resourceId, LocaleId, Value, Type, BinFile, TextFile, FileName, DateModified
     from " + DbResourceConfiguration.Current.ResourceTableName + @"
 	where ResourceSet=@ResourceSet and (LocaleId = '' {0} )
     order by ResourceId, LocaleId DESC";
@@ -308,7 +308,7 @@ namespace Westwind.Globalization
 
             string Sql = string.Empty;
 
-            Sql = "select ResourceId,Value,LocaleId,ResourceSet,Type,TextFile,BinFile,FileName,Comment from " + DbResourceConfiguration.Current.ResourceTableName +
+            Sql = "select ResourceId,Value,LocaleId,ResourceSet,Type,TextFile,BinFile,FileName,Comment,DateModified from " + DbResourceConfiguration.Current.ResourceTableName +
                   " where ResourceSet " +
                   (!LocalResources ? "not" : string.Empty) + " like @ResourceSet ORDER by ResourceSet,LocaleId";
 
@@ -343,7 +343,7 @@ namespace Westwind.Globalization
             DataTable dt;
             using (SqlDataAccess data = new SqlDataAccess(DbResourceConfiguration.Current.ConnectionString))
             {
-                string sql = "select ResourceId,Value,LocaleId,ResourceSet,Type,TextFile,BinFile,FileName,Comment from " +
+                string sql = "select ResourceId,Value,LocaleId,ResourceSet,Type,TextFile,BinFile,FileName,Comment,DateModified from " +
                              DbResourceConfiguration.Current.ResourceTableName +
                              " ORDER by ResourceSet,LocaleId";
 
@@ -549,7 +549,7 @@ namespace Westwind.Globalization
             {
 
                 using (IDataReader reader =
-                               data.ExecuteReader("select ResourceId, Value,Comment from " + DbResourceConfiguration.Current.ResourceTableName + " where ResourceId=@ResourceId and ResourceSet=@ResourceSet and LocaleId=@LocaleId",
+                               data.ExecuteReader("select ResourceId, Value,Comment,DateModified from " + DbResourceConfiguration.Current.ResourceTableName + " where ResourceId=@ResourceId and ResourceSet=@ResourceSet and LocaleId=@LocaleId",
                                    data.CreateParameter("@ResourceId", resourceId),
                                    data.CreateParameter("@ResourceSet", resourceSet),
                                    data.CreateParameter("@LocaleId", cultureName)))
@@ -772,7 +772,7 @@ namespace Westwind.Globalization
             DbParameter BinFileParm = Data.CreateParameter("@BinFile", BinFile, DbType.Binary);
             DbParameter TextFileParm = Data.CreateParameter("@TextFile", TextFile);
 
-            string Sql = "insert into " + DbResourceConfiguration.Current.ResourceTableName + " (ResourceId,Value,LocaleId,Type,Resourceset,BinFile,TextFile,Filename,Comment) Values (@ResourceID,@Value,@LocaleId,@Type,@ResourceSet,@BinFile,@TextFile,@FileName,@Comment)";
+            string Sql = "insert into " + DbResourceConfiguration.Current.ResourceTableName + " (ResourceId,Value,LocaleId,Type,Resourceset,BinFile,TextFile,Filename,Comment,DateModified) Values (@ResourceID,@Value,@LocaleId,@Type,@ResourceSet,@BinFile,@TextFile,@FileName,@Comment,@DateModified)";
             if (Data.ExecuteNonQuery(Sql,
                                    Data.CreateParameter("@ResourceId", resourceId),
                                    Data.CreateParameter("@Value", value),
@@ -781,7 +781,8 @@ namespace Westwind.Globalization
                                    Data.CreateParameter("@ResourceSet", resourceSet),
                                    BinFileParm, TextFileParm,
                                    Data.CreateParameter("@FileName", FileName),
-                                   Data.CreateParameter("@Comment", comment)) == -1)
+                                   Data.CreateParameter("@Comment", comment),
+                                   Data.CreateParameter("@DateModified", DateTime.Now)) == -1)
             {
                 ErrorMessage = Data.ErrorMessage;
                 return -1;
@@ -886,7 +887,7 @@ namespace Westwind.Globalization
 
             int Result = 0;
 
-            string Sql = "update " + DbResourceConfiguration.Current.ResourceTableName + " set Value=@Value, Type=@Type, BinFile=@BinFile,TextFile=@TextFile,FileName=@FileName, Comment=@Comment " +
+            string Sql = "update " + DbResourceConfiguration.Current.ResourceTableName + " set Value=@Value, Type=@Type, BinFile=@BinFile,TextFile=@TextFile,FileName=@FileName, Comment=@Comment,DateModified=@DateModified " +
                          "where LocaleId=@LocaleId AND ResourceSet=@ResourceSet and ResourceId=@ResourceId";
             Result = Data.ExecuteNonQuery(Sql,
                                Data.CreateParameter("@ResourceId", ResourceId),
@@ -896,7 +897,8 @@ namespace Westwind.Globalization
                                Data.CreateParameter("@ResourceSet", ResourceSet),
                                 BinFileParm, TextFileParm,
                                Data.CreateParameter("@FileName", FileName),
-                               Data.CreateParameter("@Comment", Comment)
+                               Data.CreateParameter("@Comment", Comment),
+                               Data.CreateParameter("@DateModified", DateTime.Now)
                                );
             if (Result == -1)
             {
@@ -1371,8 +1373,8 @@ namespace Westwind.Globalization
 
                 string sql =
     @"insert into {0}
-  (ResourceId,Value,LocaleId,ResourceSet,Type,BinFile,TextFile,FileName,Comment) 
-   select ResourceId,Value,LocaleId,ResourceSet,Type,BinFile,TextFile,FileName,Comment from {1}";
+  (ResourceId,Value,LocaleId,ResourceSet,Type,BinFile,TextFile,FileName,Comment,DateModified) 
+   select ResourceId,Value,LocaleId,ResourceSet,Type,BinFile,TextFile,FileName,Comment,DateModified from {1}";
 
                 sql = string.Format(sql, DbResourceConfiguration.Current.ResourceTableName, backupTableName);
 
@@ -1438,7 +1440,8 @@ CREATE TABLE [{0}] (
 		[BinFile]         varbinary(max) NULL,
 		[TextFile]        nvarchar(max) NULL,
 		[Filename]        nvarchar(128) NULL,
-        [Comment]         nvarchar(512) NULL
+        [Comment]         nvarchar(512) NULL,
+        [DateModified]    datetime NULL  
 )
 ON [PRIMARY]
 GO
@@ -1535,7 +1538,7 @@ GO
     }
 
     /// <summary>
-    /// Returns a resource item that contains both Value and Comment
+    /// Returns a resource item that contains both Value, Comment and Date Modified
     /// </summary>
     public class ResourceItem : INotifyPropertyChanged
     {
@@ -1581,6 +1584,20 @@ GO
             }
         }
         private string _Comment = null;
+
+        /// <summary>
+        /// The date modified for this resource
+        /// </summary>
+        public DateTime DateModified
+        {
+            get { return _DateModified; }
+            set 
+            {
+                _DateModified = value;
+                SendPropertyChanged("DateModified");
+            }
+        }
+        private DateTime _DateModified = DateTime.MaxValue;
 
         /// <summary>
         /// The localeId ("" invariant or "en-US", "de" etc). Note
