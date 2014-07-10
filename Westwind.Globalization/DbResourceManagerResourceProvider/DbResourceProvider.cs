@@ -32,6 +32,8 @@ namespace Westwind.Globalization
         /// with DbResourceConfiguration.
         /// </summary>
         void ClearResourceCache();
+
+        void ClearResourceSet(CultureInfo culture);
     }
 
     /// <summary>
@@ -121,6 +123,15 @@ namespace Westwind.Globalization
         public void ClearResourceCache()
         {
             ResourceManager.ReleaseAllResources(); 
+        }
+
+        /// <summary>
+        /// Not implemented here
+        /// </summary>
+        /// <param name="culture"></param>
+        public void ClearResourceSet(CultureInfo culture)
+        {
+            // not implemented
         }
 
         /// <summary>

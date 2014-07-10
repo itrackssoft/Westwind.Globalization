@@ -3,6 +3,7 @@ using System.Web.UI.Design;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Westwind.Globalization
 {
@@ -331,6 +332,22 @@ namespace Westwind.Globalization
 
             // clear any resource managers
             DbRes.ClearResources();
+        }
+
+        /// <summary>
+        /// This static method clears all resources for the culture from the loaded Resource Providers 
+        /// and forces them to be reloaded the next time they are requested.
+        /// This method works by internally tracking all the loaded ResourceProvider 
+        /// instances and calling the IwwResourceProvider.ClearResourceSet(CultureInfo) method 
+        /// on each of the provider instances.
+        /// </summary>
+        /// <param name="culture">The CultureInfo to clear</param>
+        public static void ClearResourceSet(CultureInfo culture)
+        {
+            foreach (IWestWindResourceProvider provider in LoadedProviders)
+            {
+                provider.ClearResourceSet(culture);
+            }
         }
 #endregion
 

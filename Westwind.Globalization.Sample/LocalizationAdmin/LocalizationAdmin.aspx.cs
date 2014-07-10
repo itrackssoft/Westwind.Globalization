@@ -572,9 +572,13 @@ namespace Westwind.GlobalizationWeb
         [CallbackMethod]
         public void ReloadResources()
         {
+            // Existing behaviour
             //Westwind.Globalization.Tools.wwWebUtils.RestartWebApplication();
             DbResourceConfiguration.ClearResourceCache(); // resource provider
             DbRes.ClearResources();  // resource manager
+            
+            // New behaviour
+            //DbResourceConfiguration.ClearResourceSet(new CultureInfo("en-CA"));
         }
 
         [CallbackMethod]
