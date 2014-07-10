@@ -1434,7 +1434,7 @@ CREATE TABLE [{0}] (
 		[pk]              int NOT NULL IDENTITY(1, 1),
 		[ResourceId]      nvarchar(1024) NOT NULL,
 		[Value]           nvarchar(max) NULL,
-		[LocaleId]        nvarchar(10) NULL,
+		[LocaleId]        nvarchar(14) NULL,
 		[ResourceSet]     nvarchar(512) NULL,
 		[Type]            nvarchar(512) NULL,
 		[BinFile]         varbinary(max) NULL,
