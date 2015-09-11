@@ -36,7 +36,6 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,17 +86,14 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.XML" />
-    <Reference Include="Westwind.Utilities, Version=2.55.5278.25222, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Utilities.2.55\lib\net40\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities">
+      <HintPath>..\WestwindToolkitAssemblies\Westwind.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Web, Version=2.55.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Web.2.55.01\lib\net45\Westwind.Web.dll</HintPath>
+    <Reference Include="Westwind.Web">
+      <HintPath>..\WestwindToolkitAssemblies\Westwind.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Web.WebForms, Version=2.50.5196.39647, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Web.WebForms.2.55.01\lib\net45\Westwind.Web.WebForms.dll</HintPath>
+    <Reference Include="Westwind.Web.WebForms">
+      <HintPath>..\WestwindToolkitAssemblies\Westwind.Web.WebForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +132,6 @@
   <ItemGroup>
     <None Include="DbSimpleResourceProvider\BasicResourceProvider.cd" />
     <None Include="DbSimpleResourceProvider\DbSimpleResourceProviderHierarchy.cd" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web.Sample.Xconfig">
       <SubType>Designer</SubType>
     </None>
@@ -187,5 +180,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
