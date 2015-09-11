@@ -20,6 +20,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westwind.Globalization", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westwind.Globalization.Sample", "Westwind.Globalization.Sample\Westwind.Globalization.Sample.csproj", "{1E36A3C9-2F87-407A-B568-EBF336061A06}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Toolkit Binaries", "Toolkit Binaries", "{22323C66-F3DF-4D75-B62A-43815141ADF8}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+		WestwindToolkitAssemblies\Westwind.Utilities.dll = WestwindToolkitAssemblies\Westwind.Utilities.dll
+		WestwindToolkitAssemblies\Westwind.Web.dll = WestwindToolkitAssemblies\Westwind.Web.dll
+		WestwindToolkitAssemblies\Westwind.Web.WebForms.dll = WestwindToolkitAssemblies\Westwind.Web.WebForms.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
