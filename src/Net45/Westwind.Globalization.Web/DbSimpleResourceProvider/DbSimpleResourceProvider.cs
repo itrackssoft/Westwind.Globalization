@@ -177,19 +177,6 @@ namespace Westwind.Globalization
         }
 
         /// <summary>
-        /// Clears out the resource cache for a given culture. 
-        /// All resources for the culture are reloaded from the database.
-        /// </summary>
-        /// <param name="culture">The culture to clear resources</param>
-        public void ClearResourceSet(CultureInfo culture)
-        {
-            if (_resourceCache.Contains(culture.Name))
-            {
-                _resourceCache.Remove(culture.Name);
-            }
-        }
-
-        /// <summary>
         /// The main worker method that retrieves a resource key for a given culture
         /// from a ResourceSet.
         /// </summary>
