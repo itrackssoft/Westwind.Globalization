@@ -17,9 +17,11 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+_*.htm*
 [Bb]in
 [Dd]ebug*/
 [Pp]ackages/
+App_Data*/
 *.lib
 *.sbr
 obj/
@@ -28,6 +30,10 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc
 $tf*/
+node_modules/
+.idea/
+.vs/
+.vscode/
 /Westwind.ApplicationConfiguration.WebSample/Properties/PublishProfiles/*.pubxml
-/Westwind.ApplicationConfiguration.WebSample/Properties/PublishProfiles/*.pubxml
-/WebApplication1
+.vs/config/applicationhost.config
+LocalizationAdminHtml/content/
