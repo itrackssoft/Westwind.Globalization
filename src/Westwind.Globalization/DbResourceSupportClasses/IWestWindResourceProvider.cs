@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Westwind.Globalization
 {
     /// <summary>
@@ -9,6 +11,7 @@ namespace Westwind.Globalization
         /// Interface method used to force providers to register themselves
         /// with DbResourceConfiguration.
         /// </summary>
-        void ClearResourceCache();
+        /// <param name="culture">The culture to be cleared;<c>null</c> if all should be cleared.</param>
+        void ClearResourceCache(CultureInfo culture = null);
     }
 }

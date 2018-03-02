@@ -41,6 +41,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Westwind.Utilities;
 using Westwind.Utilities.Configuration;
+using System.Globalization;
 
 namespace Westwind.Globalization
 {
@@ -425,15 +426,15 @@ namespace Westwind.Globalization
         /// Administration form when you explicitly click the Reload Resources button.
         /// <seealso>Class DbResourceConfiguration</seealso>
         /// </summary>
-        public static void ClearResourceCache()
+        public static void ClearResourceCache(CultureInfo culture = null)
         {
             foreach (IWestWindResourceProvider provider in LoadedProviders)
             {
-                provider.ClearResourceCache();
+                provider.ClearResourceCache(culture);
             }
 
             // clear any resource managers
-            DbRes.ClearResources();
+            DbRes.ClearResources(culture);
         }
 
 

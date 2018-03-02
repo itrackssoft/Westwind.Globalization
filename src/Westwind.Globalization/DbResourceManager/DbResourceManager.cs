@@ -205,6 +205,27 @@ namespace Westwind.Globalization
             InternalResourceSets.Clear();
         }
 
+        /// <summary>
+        /// Clears all resource sets and forces reloading
+        /// on next resource set retrieval. Effectively
+        /// this refreshes resources if the source has
+        /// changed. Required to see DB changes in the
+        /// live UI.
+        /// </summary>
+        public void ReleaseAllResources(CultureInfo culture)
+        {
+            if(culture == null)
+            {
+                this.ReleaseAllResources();
+            }
+            else
+            {
+                if (InternalResourceSets.ContainsKey(culture.Name))
+                {
+                    InternalResourceSets.Remove(culture.Name);
+                }
+            }
+        }
 
         // GetObject implementations to retrieve values - not required but useful to see operation
         /// <summary>

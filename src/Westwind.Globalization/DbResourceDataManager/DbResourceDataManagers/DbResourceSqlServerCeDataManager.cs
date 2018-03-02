@@ -75,7 +75,7 @@ CREATE TABLE [{0}] (
   [pk] int IDENTITY (1193,1) NOT NULL
 , [ResourceId] nvarchar(1024) NOT NULL
 , [Value] ntext DEFAULT ('') NULL
-, [LocaleId] nvarchar(10) DEFAULT ('') NULL
+, [LocaleId] nvarchar(14) DEFAULT ('') NULL
 , [ResourceSet] nvarchar(512) DEFAULT ('') NULL
 , [Type] nvarchar(512) DEFAULT ('') NULL
 , [BinFile] image NULL

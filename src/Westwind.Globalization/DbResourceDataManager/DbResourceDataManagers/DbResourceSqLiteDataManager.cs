@@ -233,7 +233,7 @@ namespace Westwind.Globalization
  [Pk] INTEGER PRIMARY KEY 
 , [ResourceId] nvarchar(1024) COLLATE NOCASE NOT NULL
 , [Value] ntext  NULL
-, [LocaleId] nvarchar(10) COLLATE NOCASE DEFAULT '' NULL
+, [LocaleId] nvarchar(14) COLLATE NOCASE DEFAULT '' NULL
 , [ResourceSet] nvarchar(512) COLLATE NOCASE DEFAULT ''  NULL
 , [Type] nvarchar(512) DEFAULT '' NULL
 , [BinFile] image NULL

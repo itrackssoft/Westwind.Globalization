@@ -237,9 +237,9 @@ namespace Westwind.Globalization
         /// Clears resources from memory and forces reloading of all ResourceSets.
         /// Effectively unloads the ResourceManager and ResourceProvider.
         /// </summary>
-        public static void ClearResources()
+        public static void ClearResources(CultureInfo culture = null)
         {
-            Instance.ClearResources();
+            Instance.ClearResources(culture);
         }
 
     }

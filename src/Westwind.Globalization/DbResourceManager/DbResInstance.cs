@@ -381,11 +381,21 @@ namespace Westwind.Globalization
         /// Clears resources from memory and forces reloading of all ResourceSets.
         /// Effectively unloads the ResourceManager and ResourceProvider.
         /// </summary>
-        public void ClearResources()
+        public void ClearResources(CultureInfo culture = null)
         {
             lock (ResourceManagers)
             {
-                ResourceManagers = new Dictionary<string, DbResourceManager>();
+                if (culture != null)
+                {
+                    if(ResourceManagers.ContainsKey(culture.Name))
+                    {
+                        ResourceManagers.Remove(culture.Name);
+                    }
+                }
+                else
+                {
+                    ResourceManagers = new Dictionary<string, DbResourceManager>();
+                }
             }
         }
 
