@@ -168,11 +168,18 @@ namespace Westwind.Globalization
         /// 
         /// This is never actually called as far as I can tell
         /// </summary>
-        public void ClearResourceCache()
+        public void ClearResourceCache(CultureInfo culture = null)
         {
             lock (_SyncLock)
             {
-                _resourceCache.Clear();
+                if (culture == null)
+                {
+                    _resourceCache.Clear();
+                }
+                else if (_resourceCache.Contains(culture.Name))
+                {
+                    _resourceCache.Remove(culture.Name);
+                }
             }
         }
 
